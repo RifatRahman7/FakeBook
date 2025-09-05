@@ -1,3 +1,4 @@
+// src/Components/Register.jsx
 import { useState } from "react";
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiCheckCircle } from "react-icons/fi";
 

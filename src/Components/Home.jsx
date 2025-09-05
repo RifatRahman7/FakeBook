@@ -1,3 +1,4 @@
+// src/Components/Home.jsx
 import { FiImage, FiVideo, FiHeart, FiMessageCircle, FiArrowRight } from "react-icons/fi";
 
 const Home = () => {
