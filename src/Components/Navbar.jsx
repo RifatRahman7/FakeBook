@@ -33,6 +33,8 @@ const Navbar = () => {
     ].join(" ");
   };
 
+  const dashActive = location.pathname.startsWith("/dashboard");
+
   return (
     <header className="sticky top-0 z-50">
       <div
@@ -53,6 +55,13 @@ const Navbar = () => {
                 className={linkCls("/")}
               >
                 Home
+              </a>
+              <a
+                href="/dashboard"
+                aria-current={dashActive ? "page" : undefined}
+                className={`${linkCls("/dashboard")} ${dashActive ? "text-[#7FFFD4] underline" : ""}`}
+              >
+                Dashboard
               </a>
               <a
                 href="/register"
@@ -96,6 +105,14 @@ const Navbar = () => {
             className={linkCls("/")}
           >
             Home
+          </a>
+          <a
+            href="/dashboard"
+            aria-current={dashActive ? "page" : undefined}
+            onClick={() => setOpen(false)}
+            className={`${linkCls("/dashboard")} ${dashActive ? "text-[#7FFFD4] underline" : ""}`}
+          >
+            Dashboard
           </a>
           <a
             href="/register"
