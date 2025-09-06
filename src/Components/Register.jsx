@@ -30,13 +30,12 @@ const Register = () => {
     setApiError("");
     
     const result = await authAPI.register(form);
-    
+    console.log('Register API result:', result);
     if (result.success) {
       setSubmitted(true);
     } else {
       setApiError(result.error);
     }
-    
     setLoading(false);
   };
 
@@ -57,10 +56,10 @@ const Register = () => {
                 We’ve sent a verification link to your inbox. Click it to activate your account.
               </p>
               <a
-                href="/"
+                href="/login"
                 className="mt-8 inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-emerald-500/90 via-cyan-500/90 to-fuchsia-500/90 px-6 py-3 font-semibold text-slate-900 hover:from-emerald-400 hover:via-cyan-400 hover:to-fuchsia-400 transition-all shadow-lg shadow-emerald-500/20"
               >
-                Go to Home
+                Go to Login
               </a>
             </div>
           </div>

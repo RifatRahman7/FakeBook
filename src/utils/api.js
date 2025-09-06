@@ -42,6 +42,7 @@ export const authAPI = {
         name: userData.name.trim(),
         email: userData.email.trim(),
         password: userData.password,
+        confirm_password: userData.confirm,
       }),
     });
   },
