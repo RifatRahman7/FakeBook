@@ -1,7 +1,7 @@
-// src/LayOuts/DashboardLayout.jsx
+// src/LayOuts/FeedLayout.jsx
 import { Outlet, useLocation } from "react-router";
 import { FiHome, FiPlusCircle, FiList } from "react-icons/fi";
-import { DashboardProvider } from "../contexts/DashboardContext";
+import { FeedProvider } from "../contexts/FeedContext";
 
 const LinkItem = ({ href, active, children }) => (
   <a
@@ -13,12 +13,12 @@ const LinkItem = ({ href, active, children }) => (
   </a>
 );
 
-const DashboardLayout = () => {
+const FeedLayout = () => {
   const location = useLocation();
   const active = (p) => location.pathname === p;
 
   return (
-    <DashboardProvider>
+    <FeedProvider>
       <div className="relative min-h-screen bg-slate-950 text-slate-100 fakebook-grid">
         <div className="drawer">
           <input id="dash-drawer" type="checkbox" className="drawer-toggle" />
@@ -35,7 +35,7 @@ const DashboardLayout = () => {
                       <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
                     </label>
                     <span className="text-lg font-bold tracking-tight">
-                      <span className="text-[#7FFFD4]">Phi</span>Book • Dashboard
+                      <span className="text-[#7FFFD4]">Phi</span>Book • Feed
                     </span>
                   </div>
                   <nav className="hidden lg:flex items-center gap-1">
@@ -48,23 +48,23 @@ const DashboardLayout = () => {
                       Home
                     </a>
                     <a
-                      href="/dashboard"
+                      href="/feed"
                       className={`px-3 py-2 rounded-lg text-sm font-medium transition hover:underline underline-offset-4 decoration-2 decoration-[#7FFFD4] ${
-                        active("/dashboard") ? "text-[#7FFFD4] underline" : "text-slate-200/90 hover:text-[#7FFFD4] hover:bg-white/5"
+                        active("/feed") ? "text-[#7FFFD4] underline" : "text-slate-200/90 hover:text-[#7FFFD4] hover:bg-white/5"
                       }`}
                     >
                       Feed
                     </a>
                     <a
-                      href="/dashboard/my-posts"
+                      href="/feed/my-posts"
                       className={`px-3 py-2 rounded-lg text-sm font-medium transition hover:underline underline-offset-4 decoration-2 decoration-[#7FFFD4] ${
-                        active("/dashboard/my-posts") ? "text-[#7FFFD4] underline" : "text-slate-200/90 hover:text-[#7FFFD4] hover:bg-white/5"
+                        active("/feed/my-posts") ? "text-[#7FFFD4] underline" : "text-slate-200/90 hover:text-[#7FFFD4] hover:bg-white/5"
                       }`}
                     >
                       My Posts
                     </a>
                     <a
-                      href="/dashboard/new-post"
+                      href="/feed/new-post"
                       className="px-3 py-2 rounded-lg text-sm font-medium transition bg-[#7FFFD4]/90 text-slate-900 hover:bg-emerald-300/90"
                     >
                       Add Post
@@ -91,22 +91,17 @@ const DashboardLayout = () => {
                 <LinkItem href="/" active={active("/")}>
                   <FiHome /> Home
                 </LinkItem>
-                <LinkItem href="/dashboard" active={active("/dashboard")}>
+                <LinkItem href="/feed" active={active("/feed")}>
                   <FiHome /> Feed
                 </LinkItem>
-                <LinkItem href="/dashboard/my-posts" active={active("/dashboard/my-posts")}>
-                  <FiList /> My Posts
-                </LinkItem>
-                <LinkItem href="/dashboard/new-post" active={active("/dashboard/new-post")}>
-                  <FiPlusCircle /> Add Post
-                </LinkItem>
+               
               </nav>
             </aside>
           </div>
         </div>
       </div>
-    </DashboardProvider>
+    </FeedProvider>
   );
 };
 
-export default DashboardLayout;
+export default FeedLayout;

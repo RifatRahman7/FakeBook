@@ -1,13 +1,16 @@
 // src/Components/Register.jsx
 import { useState } from "react";
-import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiCheckCircle } from "react-icons/fi";
+import { FiUser, FiMail, FiLock, FiEye, FiEyeOff, FiCheckCircle, FiLoader } from "react-icons/fi";
+import { authAPI } from "../utils/api";
 
 const Register = () => {
   const [showPwd, setShowPwd] = useState(false);
   const [showPwd2, setShowPwd2] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "" });
   const [errors, setErrors] = useState({});
+  const [apiError, setApiError] = useState("");
 
   const validate = () => {
     const e = {};
@@ -19,10 +22,22 @@ const Register = () => {
     return Object.keys(e).length === 0;
   };
 
-  const onSubmit = (ev) => {
+  const onSubmit = async (ev) => {
     ev.preventDefault();
     if (!validate()) return;
-    setSubmitted(true);
+    
+    setLoading(true);
+    setApiError("");
+    
+    const result = await authAPI.register(form);
+    
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      setApiError(result.error);
+    }
+    
+    setLoading(false);
   };
 
   if (submitted) {
@@ -148,11 +163,25 @@ const Register = () => {
                   {errors.confirm && <p className="mt-1 text-sm text-rose-400">{errors.confirm}</p>}
                 </div>
 
+                {apiError && (
+                  <div className="mt-4 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-sm">
+                    {apiError}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="mt-2 w-full rounded-2xl bg-gradient-to-r from-emerald-500/90 via-cyan-500/90 to-fuchsia-500/90 px-6 py-3.5 font-semibold text-slate-900 shadow-lg shadow-emerald-500/20 hover:from-emerald-400 hover:via-cyan-400 hover:to-fuchsia-400 transition cursor-pointer"
+                  disabled={loading}
+                  className="mt-2 w-full rounded-2xl bg-gradient-to-r from-emerald-500/90 via-cyan-500/90 to-fuchsia-500/90 px-6 py-3.5 font-semibold text-slate-900 shadow-lg shadow-emerald-500/20 hover:from-emerald-400 hover:via-cyan-400 hover:to-fuchsia-400 transition cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  Create account
+                  {loading ? (
+                    <>
+                      <FiLoader className="animate-spin" />
+                      Creating account...
+                    </>
+                  ) : (
+                    'Create account'
+                  )}
                 </button>
 
                 <p className="text-center text-sm text-slate-400/80">

@@ -1,11 +1,11 @@
 // src/Components/AddPost.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { useDash } from "../contexts/DashboardContext";
+import { useFeed } from "../contexts/FeedContext";
 
 const AddPost = () => {
   const nav = useNavigate();
-  const { createPost } = useDash();
+  const { createPost } = useFeed();
   const [form, setForm] = useState({ text: "", imageUrl: "", videoUrl: "" });
   const [error, setError] = useState("");
 
@@ -17,7 +17,7 @@ const AddPost = () => {
       return;
     }
     const p = createPost(form);
-    if (p) nav("/dashboard/my-posts");
+    if (p) nav("/feed/my-posts");
   };
 
   return (

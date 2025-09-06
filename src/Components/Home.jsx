@@ -1,7 +1,10 @@
 // src/Components/Home.jsx
 import { FiImage, FiVideo, FiHeart, FiMessageCircle, FiArrowRight } from "react-icons/fi";
+import { useAuth } from "../contexts/AuthContext";
 
 const Home = () => {
+  const { isAuthenticated } = useAuth();
+  
   return (
     <div className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-100 fakebook-grid">
       <div className="fakebook-vignette" />
@@ -41,14 +44,33 @@ const Home = () => {
                   </span>
                 </div>
 
-                <div className="mt-10">
-                  <a
-                    href="/register"
-                    className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500/90 via-cyan-500/90 to-fuchsia-500/90 px-6 py-3 font-semibold text-slate-900 hover:from-emerald-400 hover:via-cyan-400 hover:to-fuchsia-400 transition-all shadow-lg shadow-emerald-500/20"
-                  >
-                    Browse Fakebook
-                    <FiArrowRight className="transition-transform group-hover:translate-x-1" />
-                  </a>
+                <div className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center">
+                  {isAuthenticated ? (
+                    <a
+                      href="/dashboard"
+                      className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500/90 via-cyan-500/90 to-fuchsia-500/90 px-6 py-3 font-semibold text-slate-900 hover:from-emerald-400 hover:via-cyan-400 hover:to-fuchsia-400 transition-all shadow-lg shadow-emerald-500/20"
+                    >
+                      Go to Dashboard
+                      <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+                    </a>
+                  ) : (
+                    <>
+                      <a
+                        href="/login"
+                        className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-emerald-500/90 via-cyan-500/90 to-fuchsia-500/90 px-6 py-3 font-semibold text-slate-900 hover:from-emerald-400 hover:via-cyan-400 hover:to-fuchsia-400 transition-all shadow-lg shadow-emerald-500/20"
+                      >
+                        Get Started
+                        <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+                      </a>
+                      <a
+                        href="/feed"
+                        className="group inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-6 py-3 font-semibold text-slate-100 hover:bg-white/10 transition-all"
+                      >
+                        Browse Feed
+                        <FiArrowRight className="transition-transform group-hover:translate-x-1" />
+                      </a>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

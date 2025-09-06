@@ -1,7 +1,7 @@
 // src/Components/PostDetails.jsx
 import { useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { useDash, currentUser } from "../contexts/DashboardContext";
+import { useFeed, currentUser } from "../contexts/FeedContext";
 import PostCard from "./PostCard";
 
 const CommentItem = ({ c, canEdit, onSave, onDelete }) => {
@@ -48,7 +48,7 @@ const CommentItem = ({ c, canEdit, onSave, onDelete }) => {
 const PostDetails = () => {
   const { id } = useParams();
   const nav = useNavigate();
-  const { getPostById, comments, toggleLike, addComment, updateComment, deleteComment } = useDash();
+  const { getPostById, comments, toggleLike, addComment, updateComment, deleteComment } = useFeed();
   const post = getPostById(id);
 
   const data = useMemo(() => {

@@ -1,12 +1,12 @@
 // src/Components/EditPost.jsx
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { useDash } from "../contexts/DashboardContext";
+import { useFeed } from "../contexts/FeedContext";
 
 const EditPost = () => {
   const { id } = useParams();
   const nav = useNavigate();
-  const { getPostById, updatePost } = useDash();
+  const { getPostById, updatePost } = useFeed();
   const post = getPostById(id);
 
   const [form, setForm] = useState({ text: "", imageUrl: "", videoUrl: "" });
@@ -20,7 +20,7 @@ const EditPost = () => {
   const save = (e) => {
     e.preventDefault();
     updatePost(post.id, form);
-    nav("/dashboard/my-posts");
+    nav("/feed/my-posts");
   };
 
   return (

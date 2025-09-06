@@ -5,13 +5,15 @@ import Home from "../Components/Home";
 import Register from "../Components/Register";
 import Login from "../Components/Login";
 import ErrorPage from "../Components/ErrorPage";
-
-import DashboardLayout from "../LayOuts/DashboardLayout";
 import DashboardHome from "../Components/DashboardHome";
+
+import FeedLayout from "../LayOuts/FeedLayout";
+import Feed from "../Components/Feed";
 import MyPosts from "../Components/MyPosts";
 import AddPost from "../Components/AddPost";
 import EditPost from "../Components/EditPost";
 import PostDetails from "../Components/PostDetails";
+import ProtectedRoute from "../Components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -21,16 +23,45 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "/register", element: <Register /> },
       { path: "/login", element: <Login /> },
+      { 
+        path: "/dashboard", 
+        element: (
+          <ProtectedRoute>
+            <DashboardHome />
+          </ProtectedRoute>
+        )
+      },
     ],
   },
   {
-    path: "/dashboard",
-    Component: DashboardLayout,
+    path: "/feed",
+    Component: FeedLayout,
     children: [
-      { index: true, element: <DashboardHome /> },
-      { path: "my-posts", element: <MyPosts /> },
-      { path: "new-post", element: <AddPost /> },
-      { path: "edit/:id", element: <EditPost /> },
+      { index: true, element: <Feed /> },
+      { 
+        path: "my-posts", 
+        element: (
+          <ProtectedRoute>
+            <MyPosts />
+          </ProtectedRoute>
+        )
+      },
+      { 
+        path: "new-post", 
+        element: (
+          <ProtectedRoute>
+            <AddPost />
+          </ProtectedRoute>
+        )
+      },
+      { 
+        path: "edit/:id", 
+        element: (
+          <ProtectedRoute>
+            <EditPost />
+          </ProtectedRoute>
+        )
+      },
       { path: "post/:id", element: <PostDetails /> },
     ],
   },
